@@ -5,12 +5,33 @@ import CssBaseline from "@mui/material/CssBaseline";
 import "./global.css";
 import { Toaster } from "react-hot-toast";
 import NextTopLoader from 'nextjs-toploader';
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    // Cek apakah ada tanda "loginSuccess" dari halaman sebelumnya
+    const isLoginSuccess = localStorage.getItem("loginSuccess");
+
+    if (isLoginSuccess === "true") {
+      // Tampilkan Swal DISINI (di halaman baru)
+      Swal.fire({
+        title: "Selamat Datang!",
+        text: "Anda berhasil login ke Dashboard.",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+      // PENTING: Hapus tandanya! 
+      // Agar kalau halaman di-refresh, alertnya tidak muncul lagi.
+      localStorage.removeItem("loginSuccess");
+    }
+  }, []);
   return (
     <html lang="en">
       <body>

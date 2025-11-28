@@ -59,15 +59,9 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 
       localStorage.setItem("user", JSON.stringify(user));
 
-      Swal.fire({
-        title: "Login Berhasil!",
-        icon: "success",
-        text: "Username dan Password Sesuai!",
-        timer: 1000,
-        showConfirmButton: false,
-      });
-      // Gunakan window.location.href untuk memaksa full reload
-      // Ini memastikan cookie terbaca oleh server dan middleware
+      localStorage.setItem("loginSuccess", "true");
+      setLoading(false);
+
       window.location.href = "/";
     } catch (error: any) {
       console.log(error);
