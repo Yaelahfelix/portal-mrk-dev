@@ -14,6 +14,7 @@ import {
 import { IconListCheck, IconMail, IconUser } from "@tabler/icons-react";
 import Cookies from "js-cookie"; // install: npm i js-cookie
 import { useRouter } from "next/navigation";
+import api from "@/core/lib/api";
 
 const Profile = () => {
   const router = useRouter();
@@ -31,28 +32,41 @@ const Profile = () => {
   // =====================================
   // LOGOUT FUNCTION
   // =====================================
-  const handleLogout = async () => {
+const handleLogout = async () => {
+    // Tampilkan loading jika perlu (opsional)
+    // setLoading(true); 
+
     try {
-      // 1) Jika backend menyediakan endpoint logout, panggil di sini:
-      /*
-      await api.post("/api/auth/logout", {}, { withCredentials: true });
-      */
+      // 1) PANGGIL BACKEND (Wajib dipakai)
+      // Ini memberitahu server untuk mematikan sesi/token ini
+      await api.post("/api/auth/logout");
+      
+    } catch (err) {
+      // Jika server error/down, biarkan saja.
+      // Kita tetap lanjut menghapus data di lokal.
+      console.warn("Logout backend gagal, melanjutkan logout lokal:", err);
+    } finally {
+      // 2) BERSIH-BERSIH LOKAL (Pasti dieksekusi, sukses atau gagal)
+      
+      // Hapus token
+      Cookies.remove("token"); 
+      
+      // Hapus semua cache localStorage
+      localStorage.clear(); // Cara cepat hapus semua (hati-hati jika ada data lain)
+      // Atau satu per satu seperti kodinganmu:
+      // localStorage.removeItem("app_cache");
+      // localStorage.removeItem("menus_cache");
+      // localStorage.removeItem("user");
+      // localStorage.removeItem("loginSuccess");
 
-      // 2) Hapus token di cookie frontend (jika Anda menyimpan token manual)
-      Cookies.remove("token"); // contoh
-
-      // 3) Hapus di localStorage
-      localStorage.removeItem("app_cache");
-      localStorage.removeItem("menus_cache");
-      localStorage.removeItem("user");
-
-      // 4) Tutup menu
+      // Tutup menu
       setAnchorEl2(null);
 
-      // 5) Redirect ke halaman login
+      // 3) Redirect
       router.push("/auth/login");
-    } catch (err) {
-      console.log("Logout error:", err);
+      
+      // Matikan loading jika ada
+      // setLoading(false);
     }
   };
 
