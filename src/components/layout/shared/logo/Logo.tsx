@@ -1,25 +1,48 @@
 import Link from "next/link";
-import { styled } from "@mui/material";
 import Image from "next/image";
-
-const LinkStyled = styled(Link)(() => ({
-  height: "70px",
-  width: "180px",
-  overflow: "hidden",
-  display: "block",
-}));
+import { Box, Typography } from "@mui/material";
 
 const Logo = ({ useLink = false }) => {
   return (
-    <LinkStyled href={useLink ? "/" : ""}>
-      <Image
-        src="/images/logos/dark-logo.svg"
-        alt="logo"
-        height={70}
-        width={174}
-        priority
-      />
-    </LinkStyled>
+    <Box pb={3} pt={1} sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Link href={useLink ? "/" : ""} style={{ textDecoration: "none", width: '100%' }}>
+        
+        <Box 
+          sx={{ 
+            display: "flex",        
+            alignItems: "center",   
+            width: "100%",          
+            overflow: "hidden"      
+          }}
+        >
+          <Image
+            src="/images/logos/logo.png"
+            alt="Logo PDAM"
+            width={50}
+            height={50}
+            style={{ flexShrink: 0 }}
+            priority
+          />
+          
+          <Typography 
+            variant="h6"
+            sx={{ 
+              fontWeight: "bold",
+              lineHeight: 1.2,
+              background: "linear-gradient(to right, #5D87FF, #49beff)", 
+              WebkitBackgroundClip: "text", 
+              WebkitTextFillColor: "transparent",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              overflow: "hidden"
+            }}
+          >
+            Portal PDAM
+          </Typography>
+        </Box>
+
+      </Link>
+    </Box>
   );
 };
 

@@ -5,10 +5,10 @@ import useMenuItems from "./MenuItems";
 import { Box, Typography } from "@mui/material";
 import { Sidebar as MUI_Sidebar, MenuItem, Submenu } from "react-mui-sidebar";
 import { IconPoint } from "@tabler/icons-react";
-import * as TablerIcons from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "../shared/logo/Logo";
+import { IconMapping } from "./IconMapping";
 
 // =========================================
 // UTIL ICON
@@ -19,7 +19,7 @@ const getIcon = (name: string) => {
   const safe = name.replace(/[^a-zA-Z0-9]/g, "");
   const formatted = "Icon" + safe.charAt(0).toUpperCase() + safe.slice(1);
 
-  return (TablerIcons as any)[formatted] || IconPoint;
+  return IconMapping[formatted] || IconPoint;
 };
 
 // =========================================

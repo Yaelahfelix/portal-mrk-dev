@@ -15,7 +15,7 @@ export default class UserRepository {
 
     // PENTING: Karena JSON backendmu membungkus array di dalam property "users",
     // kita harus return data.users, bukan data mentahnya.
-    return data.users;
+    return data.data;
   }
 
   /**

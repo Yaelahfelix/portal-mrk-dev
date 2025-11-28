@@ -16,7 +16,7 @@ export interface UserItem {
 // 2. Definisi Response wrapper dari backend (untuk GET)
 export interface UserListResponse {
   message: string;
-  users: UserItem[];
+  data: UserItem[];
 }
 
 // 3. Definisi Payload (Data yang dikirim saat Create/Update)
