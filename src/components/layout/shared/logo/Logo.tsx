@@ -24,21 +24,44 @@ const Logo = ({ useLink = false }) => {
             priority
           />
           
-          <Typography 
-            variant="h6"
+          <Box 
             sx={{ 
-              fontWeight: "bold",
-              lineHeight: 1.2,
-              background: "linear-gradient(to right, #5D87FF, #49beff)", 
-              WebkitBackgroundClip: "text", 
-              WebkitTextFillColor: "transparent",
-              whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-              overflow: "hidden"
+              display: "flex", 
+              flexDirection: "column", // Ini kuncinya: menyusun item dari atas ke bawah
+              justifyContent: "center", // Opsional: mengatur posisi vertikal
+              alignItems: "flex-start"  // Opsional: 'flex-start' (kiri), 'center' (tengah), 'flex-end' (kanan)
             }}
           >
-            Portal PDAM
-          </Typography>
+            {/* 2. Item Pertama (Atas) */}
+            <Typography 
+              variant="h5"
+              sx={{ 
+                fontWeight: "bold",
+                lineHeight: 1.2,
+                background: "linear-gradient(to right, #5D87FF, #49beff)", 
+                WebkitBackgroundClip: "text", 
+                WebkitTextFillColor: "transparent",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden"
+              }}
+            >
+              SIAKURAD
+            </Typography>
+
+            {/* 3. Item Kedua (Bawah) */}
+            <Typography 
+              variant="subtitle2" 
+              sx={{ 
+                fontWeight: "bold",
+                fontSize: "12px", 
+                lineHeight: 1.2,
+                color: "text.secondary" // Tips: Gunakan warna sekunder agar hirarkinya jelas
+              }}
+            >
+              Magelang
+            </Typography>
+          </Box>
         </Box>
 
       </Link>

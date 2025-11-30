@@ -64,7 +64,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           <IconMenu width="20" height="20" />
         </IconButton>
 
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="show 11 new notifications"
           color="inherit"
@@ -74,7 +74,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           <Badge variant="dot" color="primary">
             <IconBellRinging size="21" stroke="1.5" />
           </Badge>
-        </IconButton>
+        </IconButton> */}
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center" color="inherit">
           <Typography variant="h6">Hi, {user ? user : "User!"}</Typography>

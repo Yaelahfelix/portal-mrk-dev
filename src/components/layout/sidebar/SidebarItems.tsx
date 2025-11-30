@@ -96,9 +96,6 @@ const SidebarItems = () => {
                 borderRadius: "8px",
                 "&:before": { display: "none" }, // Hilangkan garis border default Accordion
                 backgroundColor: "transparent",
-                "&.Mui-expanded": {
-                  backgroundColor: alpha(theme.palette.primary.main, 0.05),
-                },
               }}
             >
               <AccordionSummary
@@ -111,8 +108,10 @@ const SidebarItems = () => {
                     alignItems: "center",
                   },
                   "&:hover": {
-                    backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                    backgroundColor: theme.palette.primary.main,
+                    color: "white",
                   },
+                  transitionDuration: "0.2s",
                 }}
               >
                 <Box display="flex" alignItems="center" gap={2}>
@@ -143,17 +142,18 @@ const SidebarItems = () => {
                             backgroundColor: theme.palette.primary.main,
                             color: "white",
                             "&:hover": {
-                              backgroundColor: theme.palette.primary.dark,
+                              backgroundColor: theme.palette.primary.main,
+                              color: "white",
+                              transitionDuration: "0.2s",
                             },
                             "& .MuiListItemIcon-root": {
                               color: "white",
                             },
                           },
                           "&:hover": {
-                            backgroundColor: alpha(
-                              theme.palette.primary.main,
-                              0.1
-                            ),
+                              backgroundColor: theme.palette.primary.main,
+                              color: "white",
+                              transitionDuration: "0.2s",
                           },
                         }}
                       >
