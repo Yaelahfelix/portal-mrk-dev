@@ -111,7 +111,7 @@ export interface TtdParafItem {
     id: number;
     nama: string;
     jabatan: string;
-    nik: string;
+    nik: string | null;
 }
 
 export interface TtdParafListResponse {
@@ -122,7 +122,7 @@ export interface TtdParafListResponse {
 export interface ParafPayload {
     nama: string;
     jabatan: string;
-    nik: string;
+    nik: string | null;
 }
 
 export interface DesktopSettingsItem {

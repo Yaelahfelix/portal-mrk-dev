@@ -6,6 +6,7 @@ import {
     UpdateTtdLaporanPayload,
     DesktopSettingsResponse,
     DesktopSettingsPayload,
+    ParafPayload,
 } from "./PortalSettingsEntity";
 
 const MANAJEMEN_APLIKASI_URL = "/api/portal/manajemen-aplikasi";
@@ -59,14 +60,14 @@ export const PortalSettingsRepository = {
         return response.data;
     },
 
-    createParaf: async (payload: { nama: string; jabatan: string; nik: string }) => {
+    createParaf: async (payload: ParafPayload) => {
         const response = await api.post(PARAF_URL, payload);
         return response.data;
     },
 
     updateParaf: async (
         id: number,
-        payload: { nama: string; jabatan: string; nik: string },
+        payload: ParafPayload,
     ) => {
         const response = await api.put(`${PARAF_URL}/${id}`, payload);
         return response.data;

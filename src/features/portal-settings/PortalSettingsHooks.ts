@@ -1,6 +1,6 @@
 import useSWR, { mutate } from "swr";
 import { PortalSettingsRepository } from "./PortalSettingsRepository";
-import { UpdateTtdLaporanPayload } from "./PortalSettingsEntity";
+import { UpdateTtdLaporanPayload, ParafPayload } from "./PortalSettingsEntity";
 
 export const useAplikasiList = () => {
     const { data, error, isLoading } = useSWR(
@@ -21,6 +21,7 @@ export const useTtdLaporan = (aplikasiId?: number) => {
     const { data, error, isLoading, isValidating } = useSWR(
         key,
         () => PortalSettingsRepository.getTtdLaporan(aplikasiId!),
+        { revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     const updateTtdLaporan = async (id: string, payload: UpdateTtdLaporanPayload) => {
@@ -55,18 +56,14 @@ export const useTtdParafList = () => {
 export const useParafMutations = () => {
     const { refresh } = useTtdParafList();
 
-    const createParaf = async (payload: {
-        nama: string;
-        jabatan: string;
-        nik: string;
-    }) => {
+    const createParaf = async (payload: ParafPayload) => {
         await PortalSettingsRepository.createParaf(payload);
         refresh();
     };
 
     const updateParaf = async (
         id: number,
-        payload: { nama: string; jabatan: string; nik: string },
+        payload: ParafPayload,
     ) => {
         await PortalSettingsRepository.updateParaf(id, payload);
         refresh();

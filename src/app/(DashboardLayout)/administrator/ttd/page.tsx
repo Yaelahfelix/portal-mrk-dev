@@ -34,6 +34,13 @@ import {
 
 // --- Configuration Constants ---
 
+const KOSONGKAN_OPTION: TtdParafItem = {
+    id: -1,
+    nama: "Kosongkan",
+    jabatan: "",
+    nik: "",
+};
+
 const signerConfigs = [
     {
         index: 1,
@@ -229,6 +236,19 @@ const TtdLaporanCard = ({
                                             <Autocomplete<TtdParafItem, false, false, false>
                                                 value={selectedParaf ?? null}
                                                 onChange={(_, option) => {
+                                                    if (option?.id === -1) {
+                                                        field.onChange(null);
+                                                        setValue(config.name, "", {
+                                                            shouldDirty: true,
+                                                        });
+                                                        setValue(config.position, "", {
+                                                            shouldDirty: true,
+                                                        });
+                                                        setValue(config.nik, "", {
+                                                            shouldDirty: true,
+                                                        });
+                                                        return;
+                                                    }
                                                     const selected = option ?? null;
                                                     field.onChange(selected ? selected.id : null);
                                                     setValue(config.name, selected?.nama ?? "", {
@@ -242,14 +262,16 @@ const TtdLaporanCard = ({
                                                     });
                                                 }}
                                                 onBlur={field.onBlur}
-                                                options={parafOptions}
+                                                options={[KOSONGKAN_OPTION, ...parafOptions]}
                                                 loading={isParafLoading}
                                                 disabled={isParafLoading && parafOptions.length === 0}
                                                 loadingText="Memuat daftar paraf..."
                                                 getOptionLabel={(option) =>
-                                                    option.jabatan
-                                                        ? `${option.nama} - ${option.jabatan}`
-                                                        : option.nama
+                                                    option.id === -1
+                                                        ? option.nama
+                                                        : option.jabatan
+                                                            ? `${option.nama} - ${option.jabatan}`
+                                                            : option.nama
                                                 }
                                                 renderInput={(params) => (
                                                     <TextField

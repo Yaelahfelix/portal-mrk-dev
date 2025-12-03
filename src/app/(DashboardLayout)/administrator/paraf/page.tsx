@@ -281,13 +281,12 @@ const AdministratorParafPage = () => {
                             <Controller
                                 name="nik"
                                 control={control}
-                                rules={{ required: "NIK wajib diisi" }}
                                 render={({ field }) => (
                                     <TextField
                                         {...field}
                                         label="NIK"
-                                        required
                                         fullWidth
+                                        value={field.value ?? ""}
                                         error={Boolean(errors.nik)}
                                         helperText={errors.nik?.message}
                                     />
