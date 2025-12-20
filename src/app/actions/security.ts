@@ -17,6 +17,49 @@ export async function encryptToken(token: string) {
   return encrypted;
 }
 
+// Interface untuk payload SSO
+export interface SsoPayload {
+  token: string;
+  user: Record<string, unknown>;
+}
+
+export async function encryptPayload(payload: SsoPayload) {
+  const secretKey = process.env.SSO_SECRET_KEY;
+
+  if (!secretKey) {
+    throw new Error("Konfigurasi Server Error: Secret Key belum diset.");
+  }
+
+  // Mengubah payload object menjadi JSON string lalu di-encrypt
+  const payloadString = JSON.stringify(payload);
+  const encrypted = AES.encrypt(payloadString, secretKey).toString();
+
+  return encrypted;
+}
+
+export async function decryptPayload(encryptedPayload: string): Promise<SsoPayload> {
+  const secretKey = process.env.SSO_SECRET_KEY;
+
+  if (!secretKey) {
+    throw new Error("Konfigurasi Server Error: Secret Key belum diset.");
+  }
+
+  try {
+    const bytes = AES.decrypt(encryptedPayload, secretKey);
+    const decryptedString = bytes.toString(Utf8);
+
+    if (!decryptedString) {
+      throw new Error("Gagal mendekripsi payload");
+    }
+
+    const payload: SsoPayload = JSON.parse(decryptedString);
+    return payload;
+  } catch (error) {
+    console.error("Decryption error:", error);
+    throw new Error("Payload tidak valid atau gagal didekripsi");
+  }
+}
+
 export async function decryptToken(encryptedToken: string) {
   const secretKey = process.env.SSO_SECRET_KEY;
 

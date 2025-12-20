@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { encryptToken } from "@/app/actions/security";
+import { encryptPayload, SsoPayload } from "@/app/actions/security";
 
 interface AppData {
   id: number;
@@ -29,6 +29,19 @@ export const useRedirectToApp = () => {
       return;
     }
 
+    // Ambil data user dari localStorage
+    const userDataString = localStorage.getItem("user");
+    let userData: Record<string, unknown> = {};
+
+    if (userDataString) {
+      try {
+        userData = JSON.parse(userDataString);
+      } catch (error) {
+        console.warn("Gagal mem-parse data user:", error);
+        userData = {};
+      }
+    }
+
     const appCacheString = localStorage.getItem("app_cache");
     if (!appCacheString) {
       toast.error("Konfigurasi aplikasi tidak ditemukan.");
@@ -37,7 +50,13 @@ export const useRedirectToApp = () => {
     }
 
     try {
-      const secureToken = await encryptToken(userToken);
+      // Buat payload SSO yang berisi token dan user data
+      const ssoPayload: SsoPayload = {
+        token: userToken,
+        user: userData,
+      };
+
+      const securePayload = await encryptPayload(ssoPayload);
       const cache: CacheData = JSON.parse(appCacheString);
       const targetApp = cache.data.find((app) => app.nama === appName);
 
@@ -46,7 +65,7 @@ export const useRedirectToApp = () => {
         return; // finally akan tetap jalan
       }
 
-      const destination = `${targetApp.url}/authentication/receiver?data=${encodeURIComponent(secureToken)}`;
+      const destination = `${targetApp.url}/authentication/receiver?data=${encodeURIComponent(securePayload)}`;
 
       // Redirect
       window.location.href = destination;
