@@ -50,7 +50,6 @@ export const useRedirectToApp = () => {
     }
 
     try {
-      // Buat payload SSO yang berisi token dan user data
       const ssoPayload: SsoPayload = {
         token: userToken,
         user: userData,
