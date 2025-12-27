@@ -1,0 +1,40 @@
+export interface User {
+  id: number;
+  username: string;
+  nama: string;
+  jabatan: string;
+  role: string;
+  role_id: number;
+  is_user_ppob: boolean;
+  is_active: boolean;
+  is_user_timtagih: boolean;
+  no_telp: string;
+  divisi_id: number;
+  saldo: number;
+  status: boolean;
+  alamat: string;
+  email: string;
+  namaGolongan: string;
+  namaRayon: string;
+  no_ktp: string;
+  no_kk: string;
+  no_hp: string;
+  history_pelanggan: any[];
+  flagpajak: boolean;
+  flagpel: boolean;
+
+  flagproses: boolean;
+  flagrealisasi: boolean;
+  by_pelayanan: string;
+  jenis: string;
+  namajenis: string;
+  no_pelanggan: string;
+  kec_id: number;
+  kel_id: number;
+  rayon_id: number;
+  golongan_id: number;
+  flaglunas: boolean;
+  is_mbr: boolean;
+  tanggal: string;
+  namaDivisi: string;
+}

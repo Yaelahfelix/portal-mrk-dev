@@ -1,0 +1,95 @@
+export interface DRDTimPenagihan {
+  user_id: number;
+  flaglunasmkp: number;
+  denda: string;
+  rekair: string;
+  angsuran: string;
+  minper: string;
+  maxper: string;
+  no_pelanggan: string;
+  nama: string;
+  jmlrek: number;
+  lbrlunas: string;
+  dendalunas: string;
+  rekairlunas: string;
+  angsuranlunas: string;
+  meterailunas: string;
+  meteraitagih: string;
+  userlunas: string;
+  timtagih: string;
+  tglbayar: string;
+  alamat: string;
+  no_hp: string;
+  latitude: string;
+  longitude: string;
+  kode_golongan: string;
+  periodetag: string;
+  rayon: string;
+  kode_rayon?: string;
+  wilayah?: string;
+  wilayah_id?: number;
+  ttltagihan: string;
+  ttltagihanlunas: string;
+  sisarek: string;
+  sisatagihan: string;
+  ttltagihan_lancar?: string;
+  ttltagihan_tunggakan?: string;
+  ttltagihanlunas_lancar?: string;
+  ttltagihanlunas_tunggakan?: string;
+  jmlrek_lancar?: string;
+  jmlrek_tunggakan?: string;
+  lbrlunas_lancar?: string;
+  lbrlunas_tunggakan?: string;
+  status: number;
+  jrek: number;
+}
+
+export interface RekapDRD {
+  id: number;
+  rekapBy: "kasir" | "loket" | "wilayah" | "timtagih";
+  nama: string;
+  ttltagihan: string;
+  jmlrek: string;
+  ttltagihan_lancar: string;
+  jmlrek_lancar: string;
+  ttltagihan_tunggakan: string;
+  jmlrek_tunggakan: string;
+  sisatagihan: string;
+  jmlrek_sisa: string;
+  sisatagihan_lancar: string;
+  jmlrek_sisa_lancar: string;
+  sisatagihan_tunggakan: string;
+  jmlrek_sisa_tunggakan: string;
+  sisarek: string;
+  ttltagihanlunas: string;
+  lbrlunas: string;
+  ttltagihanlunas_lancar: string;
+  lbrlunas_lancar: string;
+  ttltagihanlunas_tunggakan: string;
+  lbrlunas_tunggakan: string;
+  rayon: Rayon[];
+}
+
+interface Rayon {
+  rayon: string;
+  jmlrek: number;
+  lbrlunas: number;
+  rayon_id: number;
+  kode_rayon: string;
+  jmlrek_sisa: number;
+  jmlrek_lancar: number;
+  total_tagihan: number;
+  lbrlunas_lancar: number;
+  jmlrek_tunggakan: number;
+  total_sisatagihan: number;
+  jmlrek_sisa_lancar: number;
+  lbrlunas_tunggakan: number;
+  total_tagihanlunas: number;
+  total_tagihan_lancar: number;
+  jmlrek_sisa_tunggakan: number;
+  total_tagihan_tunggakan: number;
+  total_sisatagihan_lancar: number;
+  total_tagihanlunas_lancar: number;
+  total_sisatagihan_tunggakan: number;
+  total_tagihanlunas_tunggakan: number;
+}
