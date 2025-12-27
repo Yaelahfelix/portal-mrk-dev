@@ -1,11 +1,11 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "@/core/types/user";
+import { User } from "@/types/user";
 import Actions from "./actions";
 import { Chip } from "@heroui/react";
 import { formatRupiah } from "@/core/lib/utils";
-import { Diameter } from "@/core/types/diameter";
+import { Diameter } from "@/types/diameter";
 import { Wilayah } from "./type";
 
 export const columns: ColumnDef<Wilayah>[] = [

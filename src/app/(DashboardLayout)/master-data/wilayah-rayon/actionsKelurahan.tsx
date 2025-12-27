@@ -12,7 +12,7 @@ import { Form } from "./formRayon";
 import ModalDeleteRowTable from "@/components/modal/deleteRowTable";
 import api from "@/core/lib/api";
 import { AxiosError } from "axios";
-import { ErrorResponse } from "@/core/types/axios";
+import { ErrorResponse } from "@/types/axios";
 import { Rayon } from "./type";
 import { mutate } from "swr";
 

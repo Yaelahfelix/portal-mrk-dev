@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/core/types/user";
+import { User } from "@/types/user";
 import {
   Accordion,
   AccordionItem,

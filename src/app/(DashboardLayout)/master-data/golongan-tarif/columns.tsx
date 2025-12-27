@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { SKTarif } from "./type";
-import { User } from "@/core/types/user";
+import { User } from "@/types/user";
 import Actions from "./actions";
 import { Chip } from "@heroui/react";
 import { format } from "date-fns";

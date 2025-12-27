@@ -1,7 +1,7 @@
 "use client";
 
 import { DataTable } from "@/components/data-table";
-import { Diameter } from "@/core/types/diameter";
+import { Diameter } from "@/types/diameter";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import { canTableDetail } from "./detailTableRow";

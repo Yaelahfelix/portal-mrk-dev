@@ -13,7 +13,7 @@ import ModalDeleteRowTable from "@/components/modal/deleteRowTable";
 import api from "@/core/lib/api";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { ErrorResponse } from "@/core/types/axios";
+import { ErrorResponse } from "@/types/axios";
 import { mutate } from "swr";
 
 type Props = { user: SKTarif };

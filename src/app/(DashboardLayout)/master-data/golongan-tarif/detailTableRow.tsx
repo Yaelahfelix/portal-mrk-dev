@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/core/types/user";
+import { User } from "@/types/user";
 import { Accordion, AccordionItem, Alert, Divider } from "@heroui/react";
 import { SKTarif } from "./type";
 import { DataTable } from "@/components/data-table";

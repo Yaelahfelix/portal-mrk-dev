@@ -1,6 +1,6 @@
 "use client";
 
-import { ErrorResponse } from "@/core/types/axios";
+import { ErrorResponse } from "@/types/axios";
 import { addToast } from "@heroui/react";
 import api from "@/core/lib/api";
 import { AxiosError } from "axios";
