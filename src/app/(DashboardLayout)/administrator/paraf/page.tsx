@@ -221,6 +221,11 @@ const AdministratorParafPage = () => {
                         columns={columns}
                         disableRowSelectionOnClick
                         loading={isLoading || isValidating}
+                        pagination
+                        pageSizeOptions={[10, 25, 50, 100]}
+                        initialState={{
+                            pagination: { paginationModel: { pageSize: 10 } },
+                        }}
                     />
                 </DashboardCard>
             </Stack>

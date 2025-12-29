@@ -633,6 +633,11 @@ const RolesPage = () => {
                         disableRowSelectionOnClick
                         loading={isLoading || isValidating}
                         getRowHeight={() => "auto"}
+                        pagination
+                        pageSizeOptions={[10, 25, 50, 100]}
+                        initialState={{
+                            pagination: { paginationModel: { pageSize: 10 } },
+                        }}
                         sx={{ "& .MuiDataGrid-cell": { py: 1 } }}
                     />
                 </DashboardCard>
