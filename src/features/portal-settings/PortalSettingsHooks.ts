@@ -121,3 +121,20 @@ export const useDesktopSettings = () => {
         updateSettings,
     };
 };
+
+export const useAdminPassword = () => {
+    const { data, error, isLoading } = useSWR(
+        "/api/pass-admin",
+        PortalSettingsRepository.getAdminPassword,
+        {
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
+        }
+    );
+
+    return {
+        data: data?.data || "",
+        isLoading,
+        error,
+    };
+};

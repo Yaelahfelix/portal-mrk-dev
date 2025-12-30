@@ -153,3 +153,7 @@ export interface DesktopSettingsPayload {
     alamat2?: string;
     footerkota?: string;
 }
+
+export interface AdminPasswordResponse {
+    data: string;
+}
