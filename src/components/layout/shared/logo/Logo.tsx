@@ -46,7 +46,7 @@ const Logo = ({ useLink = false }) => {
                 overflow: "hidden"
               }}
             >
-              SIAKURAD
+              SIPAMIT
             </Typography>
 
             {/* 3. Item Kedua (Bawah) */}
@@ -59,7 +59,7 @@ const Logo = ({ useLink = false }) => {
                 color: "text.secondary" // Tips: Gunakan warna sekunder agar hirarkinya jelas
               }}
             >
-              Sleman
+              Portal
             </Typography>
           </Box>
         </Box>
