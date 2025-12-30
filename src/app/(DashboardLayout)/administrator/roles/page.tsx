@@ -111,19 +111,24 @@ const defaultValues: RoleFormValues = {
 // -------------------------------------------------------------
 const useAppsCache = () => {
     const [apps, setApps] = useState<AppItem[]>([]);
+    const [isLoadingApps, setIsLoadingApps] = useState(false);
 
     useEffect(() => {
-        try {
-            const cache = localStorage.getItem("app_cache");
-            if (cache) {
-                const parsed: AppCache = JSON.parse(cache);
-                if (parsed && Array.isArray(parsed.data)) {
-                    setApps(parsed.data);
+        const fetchApps = async () => {
+            setIsLoadingApps(true);
+            try {
+                const response = await api.get("/api/portal/manajemen-aplikasi");
+                if (response.data?.data && Array.isArray(response.data.data)) {
+                    setApps(response.data.data);
                 }
+            } catch (error) {
+                console.error("Failed to fetch applications from backend", error);
+            } finally {
+                setIsLoadingApps(false);
             }
-        } catch (error) {
-            console.error("Failed to parse app_cache", error);
-        }
+        };
+
+        fetchApps();
     }, []);
 
     const getAppName = useCallback(
@@ -135,7 +140,7 @@ const useAppsCache = () => {
         [apps]
     );
 
-    return { apps, getAppName };
+    return { apps, getAppName, isLoadingApps };
 };
 
 // -------------------------------------------------------------

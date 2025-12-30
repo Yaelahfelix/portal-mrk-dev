@@ -59,7 +59,7 @@ const Logo = ({ useLink = false }) => {
                 color: "text.secondary" // Tips: Gunakan warna sekunder agar hirarkinya jelas
               }}
             >
-              Magelang
+              Sleman
             </Typography>
           </Box>
         </Box>

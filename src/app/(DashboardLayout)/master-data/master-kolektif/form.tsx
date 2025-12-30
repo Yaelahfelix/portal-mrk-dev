@@ -5,7 +5,7 @@ import { addToast } from "@heroui/react";
 import api from "@/core/lib/api";
 import { AxiosError } from "axios";
 import { Formik, FormikHelpers } from "formik";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect, useRef } from "react";
 import { mutate } from "swr";
 import {
     Dialog,
@@ -16,7 +16,11 @@ import {
     Button,
     Box,
     CircularProgress,
+    IconButton,
+    InputAdornment,
+    Tooltip,
 } from "@mui/material";
+import { Refresh } from "@mui/icons-material";
 
 // Interface untuk Kolektif
 export interface KolektifForm {
@@ -45,10 +49,49 @@ export const Form = ({
     };
 }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [generatedNoKolektif, setGeneratedNoKolektif] = useState<string>("");
+    const formikRef = useRef<any>(null);
     const { isOpen, onOpenChange } = diclosure;
 
+    // Function to generate/fetch nomor kolektif from backend
+    const generateNoKolektif = useCallback(async () => {
+        if (isEdit) return; // Only generate for create mode
+
+        setIsGenerating(true);
+        try {
+            const response = await api.get("/api/portal/master-data/master-kolektif/generate-no-kolektif");
+            const noKolektif = response.data?.data?.nomor_kolektif || "";
+            setGeneratedNoKolektif(noKolektif);
+
+            // Update formik value if ref is available
+            if (formikRef.current) {
+                formikRef.current.setFieldValue("no_kolektif", noKolektif);
+            }
+        } catch (error) {
+            addToast({
+                color: "danger",
+                title: "Gagal generate nomor kolektif",
+                description: "Silakan coba lagi",
+            });
+        } finally {
+            setIsGenerating(false);
+        }
+    }, [isEdit]);
+
+    // Auto-generate nomor kolektif when dialog opens (create mode only)
+    useEffect(() => {
+        if (isOpen && !isEdit) {
+            generateNoKolektif();
+        }
+        // Reset when dialog closes
+        if (!isOpen) {
+            setGeneratedNoKolektif("");
+        }
+    }, [isOpen, isEdit, generateNoKolektif]);
+
     const initialValues: FormType = {
-        no_kolektif: kolektif?.no_kolektif || "",
+        no_kolektif: isEdit ? (kolektif?.no_kolektif || "") : generatedNoKolektif,
         nama: kolektif?.nama || "",
         telp: kolektif?.telp || "",
     };
@@ -113,7 +156,9 @@ export const Form = ({
                 {isEdit ? "Edit" : "Tambah"} Kolektif
             </DialogTitle>
             <Formik
+                innerRef={formikRef}
                 initialValues={initialValues}
+                enableReinitialize={!isEdit}
                 onSubmit={(values, actions) =>
                     handleSubmit(values, actions, onOpenChange)
                 }
@@ -138,10 +183,39 @@ export const Form = ({
                                         type="text"
                                         value={values.no_kolektif}
                                         error={!!errors.no_kolektif && !!touched.no_kolektif}
-                                        helperText={touched.no_kolektif && errors.no_kolektif}
-                                        onChange={handleChange}
+                                        // helperText={
+                                        //     touched.no_kolektif && errors.no_kolektif
+                                        //         ? errors.no_kolektif
+                                        //         : !isEdit
+                                        //             ? "Nomor kolektif di-generate otomatis"
+                                        //             : undefined
+                                        // }
+                                        onChange={isEdit ? handleChange : undefined}
                                         onBlur={handleBlur}
-                                        placeholder="Masukkan nomor kolektif"
+                                        placeholder={isGenerating ? "Generating..." : "Nomor Kolektif"}
+                                        disabled={!isEdit}
+                                        slotProps={{
+                                            input: {
+                                                endAdornment: !isEdit ? (
+                                                    <InputAdornment position="end">
+                                                        <Tooltip title="Generate ulang nomor kolektif">
+                                                            <IconButton
+                                                                onClick={generateNoKolektif}
+                                                                disabled={isGenerating}
+                                                                edge="end"
+                                                                size="small"
+                                                            >
+                                                                {isGenerating ? (
+                                                                    <CircularProgress size={20} />
+                                                                ) : (
+                                                                    <Refresh />
+                                                                )}
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    </InputAdornment>
+                                                ) : undefined,
+                                            },
+                                        }}
                                     />
                                     <TextField
                                         fullWidth
