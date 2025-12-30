@@ -9,7 +9,7 @@ import PageContainer from "@/components/container/PageContainer";
 import DashboardCard from "@/components/shared/DashboardCard";
 
 // Hooks
-import { useDesktopSettings } from "@/features/portal-settings/PortalSettingsHooks";
+import { useDesktopSettings, useAdminPassword } from "@/features/portal-settings/PortalSettingsHooks";
 import type { DesktopSettingsPayload } from "@/features/portal-settings/PortalSettingsEntity";
 
 // UI MUI
@@ -45,6 +45,7 @@ const defaultValues: SettingsFormValues = {
 // -------------------------------------------------------------
 const AdministratorSettingsPage = () => {
     const { data, error, isLoading, updateSettings } = useDesktopSettings();
+    const { data: adminPasswordData } = useAdminPassword();
 
     const {
         control,
@@ -199,6 +200,25 @@ const AdministratorSettingsPage = () => {
                                                 helperText={errors.footerkota?.message}
                                             />
                                         )}
+                                    />
+                                </Grid>
+                            </Grid>
+
+                            <Typography variant="subtitle1" fontWeight={600}>
+                                Informasi
+                            </Typography>
+                            <Grid container spacing={3}>
+                                <Grid size={{ xs: 12, md: 6 }}>
+                                    <TextField
+                                        label="Password Admin"
+                                        fullWidth
+                                        disabled
+                                        value={adminPasswordData || ""}
+                                        slotProps={{
+                                            input: {
+                                                readOnly: true,
+                                            },
+                                        }}
                                     />
                                 </Grid>
                             </Grid>

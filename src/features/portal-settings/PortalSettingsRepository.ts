@@ -92,4 +92,11 @@ export const PortalSettingsRepository = {
         );
         return response.data;
     },
+
+    getAdminPassword: async () => {
+        const response = await api.get<{ data: string }>(
+            "/api/pass-admin",
+        );
+        return response.data;
+    },
 };
