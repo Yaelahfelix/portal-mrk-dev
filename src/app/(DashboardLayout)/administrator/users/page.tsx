@@ -312,39 +312,100 @@ const UserManagementPage = () => {
   // Render
   // -------------------------------------------------------------
   return (
-    <PageContainer
-      title="Manajemen User - Portal PDAM MRK"
-      description="Pengelolaan data user sistem"
-    >
-      <Stack spacing={3}>
-        {loadErrorMessage && <Alert severity="error">{loadErrorMessage}</Alert>}
+    <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
+      {/* Breadcrumb */}
+      <ul className="flex gap-2">
+        <li className="flex gap-2">
+          <span>Dashboard</span>
+          <span>/</span>
+        </li>
+        <li className="flex gap-2">
+          <span>Administrator</span>
+          <span>/</span>
+        </li>
+        <li className="flex gap-2">
+          <span>Manajemen User</span>
+        </li>
+      </ul>
 
-        <DashboardCard
-          title="Daftar Pengguna"
-          action={
-            <Button
-              variant="contained"
-              startIcon={<AddIcon />}
-              onClick={handleOpenCreate}
-            >
-              Tambah User
-            </Button>
-          }
-        >
-          <DataGridPro
-            autoHeight
-            rows={rows}
-            columns={columns}
-            disableRowSelectionOnClick
-            loading={isLoading || isValidating}
-            pagination
-            pageSizeOptions={[10, 25, 50, 100]}
-            initialState={{
-              pagination: { paginationModel: { pageSize: 10 } },
-            }}
-          />
-        </DashboardCard>
-      </Stack>
+      <h3 className="text-xl font-semibold">Daftar Pengguna</h3>
+
+      {/* Search & Add Button */}
+      <div className="flex justify-between flex-wrap gap-4 items-center">
+        <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
+          {/* Search input placeholder - can be added later */}
+        </div>
+        <div className="flex flex-row gap-3.5 flex-wrap">
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleOpenCreate}
+          >
+            Tambah User
+          </Button>
+        </div>
+      </div>
+
+      {loadErrorMessage && <Alert severity="error">{loadErrorMessage}</Alert>}
+
+      {/* Data Table with master-data styling */}
+      <Box
+        sx={{
+          width: "100%",
+          overflow: "hidden",
+          bgcolor: "background.paper",
+          borderRadius: "12px",
+          boxShadow: 3,
+        }}
+      >
+        <DataGridPro
+          autoHeight
+          rows={rows}
+          columns={columns}
+          disableRowSelectionOnClick
+          loading={isLoading || isValidating}
+          pagination
+          pageSizeOptions={[10, 25, 50, 100]}
+          initialState={{
+            pagination: { paginationModel: { pageSize: 10 } },
+          }}
+          sx={{
+            border: "none",
+            "& .MuiDataGrid-columnHeaders": {
+              bgcolor: "grey.50",
+              color: "text.secondary",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              fontSize: "0.75rem",
+              borderBottom: "2px solid",
+              borderColor: "grey.300",
+            },
+            "& .MuiDataGrid-row": {
+              borderBottom: "1px solid",
+              borderColor: "grey.400",
+            },
+            "& .MuiDataGrid-row:hover": {
+              bgcolor: "grey.50"
+            },
+            "& .MuiDataGrid-cell": {
+              display: "flex",
+              alignItems: "center",
+              borderRight: "1px solid",
+              borderColor: "grey.200",
+            },
+            "& .MuiDataGrid-cell:last-child": {
+              borderRight: "none",
+            },
+            "& .MuiDataGrid-columnHeader": {
+              borderRight: "1px solid",
+              borderColor: "grey.300",
+            },
+            "& .MuiDataGrid-columnHeader:last-child": {
+              borderRight: "none",
+            },
+          }}
+        />
+      </Box>
 
       {/* FORM DIALOG */}
       <Dialog
@@ -596,7 +657,7 @@ const UserManagementPage = () => {
           </LoadingButton>
         </DialogActions>
       </Dialog>
-    </PageContainer>
+    </div>
   );
 };
 

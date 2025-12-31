@@ -1,10 +1,11 @@
 "use client";
 
 import {
-  Button,
   Input,
   useDisclosure,
 } from "@heroui/react";
+import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import React, { useState, useEffect, useCallback } from "react";
 import { Form } from "./form";
 import { useSearchParams } from "next/navigation";
@@ -46,7 +47,12 @@ function TableFunction({ limit }: { limit: string }) {
       </div>
 
       <div className="flex flex-row gap-3.5 flex-wrap">
-        <Button onPress={onOpen} color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={onOpen}
+        >
           Add Kecamatan
         </Button>
         <Form diclosure={{ isOpen, onOpenChange }} />
@@ -56,3 +62,4 @@ function TableFunction({ limit }: { limit: string }) {
 }
 
 export default TableFunction;
+
